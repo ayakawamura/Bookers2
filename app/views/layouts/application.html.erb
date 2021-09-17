@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/10753573b8.js" crossorigin="anonymous"></script>
+    
     <title>Bookers2</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -20,7 +23,7 @@
         <div class="container">
 
           <!--bookersボタン-->
-          <a class="navbar-brand " href="/">
+          <a class="navbar-brand" href="/">
             <%=link_to "Bookers",root_path %>
           </a>
 
@@ -35,10 +38,10 @@
 
               <% if user_signed_in? %>
                 <li>
-                  <%= link_to "Home", user_path(current_user.id),class:"nav-link text-white"%>
+                  <%= link_to "Home", user_path(current_user.id), class:"nav-link text-light"%>
                 </li>
                 <li>
-                  <%= link_to "Users", user_registration_path %>
+                  <%= link_to "Users", user_registration_path, class:"nav-link text-light"%>
                 </li>
                 <li>
                   <%= link_to "Books", books_path %>
