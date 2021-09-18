@@ -10,6 +10,7 @@
 
     <!--bootstrap-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -24,11 +25,11 @@
 
           <!--bookersボタン-->
           <a class="navbar-brand" href="/">
-            <%=link_to "Bookers",root_path %>
+            <%=link_to "Bookers",root_path ,class:"nav-link text-light"%>
           </a>
 
           <!--naviボタン-->
-          <button class="navbar-toggler" type="button" date-toggle="collapse" date-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigaition">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" date-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-togger-icon"></span>
           </button>
 
@@ -38,32 +39,49 @@
 
               <% if user_signed_in? %>
                 <li>
-                  <%= link_to "Home", user_path(current_user.id), class:"nav-link text-light"%>
+                  <%= link_to user_path(current_user.id) ,class:"nav-link " do %>
+                    <i class="fas fa-home" ></i><span>Home</span>
+                  <%end%>
                 </li>
                 <li>
-                  <%= link_to "Users", user_registration_path, class:"nav-link text-light"%>
+                  <%= link_to user_registration_path, class:"nav-link text-light" do%>
+                    <i class="fas fa-users"></i><span>Users</span>
+                  <%end%>
                 </li>
                 <li>
-                  <%= link_to "Books", books_path %>
+                  <%= link_to books_path,class:"nav-link text-light" do%>
+                    <i class="fas fa-book-open"></i><span>Books</span>
+                  <%end%>
                 </li>
                 <li>
-                  <%= link_to "logout", user_registration_path, method: :delete %>
+                  <%= link_to user_registration_path, method: :delete ,class:"nav-link text-light" do%>
+                    <i class="fas fa-sign-out-alt"></i><span>logout</span>
+                  <%end%>
                 </li>
 
               <% else %>
 
                 <li>
-                  <%= link_to "Home", root_path %>
+                  <%= link_to root_path ,class:"nav-link text-light" do %>
+                    <i class="fas fa-home" ></i><span>Home</span>
+                  <%end%>
                 </li>
                 <li>
-                  <%= link_to "About", homes_about_path %>
+                  <%= link_to homes_about_path ,class:"nav-link text-light" do%>
+                    <i class="fas fa-link"></i><span>About</span>
+                  <%end%>
                 </li>
                 <li>
-                  <%= link_to "sign up", new_user_registration_path %>
+                  <%= link_to new_user_registration_path ,class:"nav-link text-light" do%>
+                    <i class="fas fa-user-plus"></i><span>sign up</span>
+                  <%end%>
                 </li>
                 <li>
-                  <%= link_to "login", new_user_session_path %>
+                  <%= link_to new_user_session_path ,class:"nav-link text-light" do%>
+                    <i class="fas fa-sign-in-alt"></i>login
+                    <%end%>
                 </li>
+                
               <% end %>
             </ul>
           </div>
