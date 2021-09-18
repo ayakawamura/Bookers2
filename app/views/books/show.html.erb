@@ -1,2 +1,18 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<!--１つの投稿のshowページ-->
+
+<h1>Book detail</h1>
+
+  <table class="table table-striped" >
+    <tbody>         
+          <tr>
+            <td><%=attachment_image_tag @user,:profile_image,:fill,10,10,format: 'jpeg', fallback: "no_image.jpg" %>
+                <%= link_to @user.name,user_path(@user.id)>
+            </td>
+            <td><%=link_to @book.title,book_path(book.id) %></td>
+            <td><%=@book.body%></td>
+          </tr>
+            
+    </tbody>
+            
+  </table>
+          

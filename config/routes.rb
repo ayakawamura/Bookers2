@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   
   resources :books,only:[:index,:create,:show,:edit,:update,:destroy]
   
-  resources :users,only:[:show,:edit,:update]
+  resources :users,only:[:show,:edit,:update,:index]
   
 end
