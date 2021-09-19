@@ -1,5 +1,6 @@
 <h1>User info</h1>
           <%= image_tag("no_image.jpg")%>
+          <%#= attachment_image_tag @user,:profile_image,:fill,20,20,format:"jpeg",fallback:"no_image.jpg"%>
           
           <table class="table table-striped">
             <tbody>
@@ -18,7 +19,7 @@
           
           <!--ユーザー編集ボタン-->
                 <%if user.id==current_user.id %>
-                  <%=link_to edit_user_registration_path,class:"btn btn-outline-secondary btn-block mb-3" do %>
+                  <%=link_to edit_user_path(@user.id),class:"btn btn-outline-secondary btn-block mb-3" do %>
                     <i class="fas fa-user-cog"></i>
                   <%end%>
                 <%end%>
