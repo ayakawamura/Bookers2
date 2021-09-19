@@ -1,2 +1,29 @@
-<h1>Books#edit</h1>
-<p>Find me in app/views/books/edit.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class=col-lg-8 col-10 mx-auto>
+			
+			<h1>Editing Book</h1>
+			
+		  <%= form_with model:@book ,local:true do |f|%>
+        <div class="mb-3">
+	        <label for="title">Title</label><br/>
+	        <%= f.text_field :title %>
+	      </div>
+        
+        <div class="mb-3">
+	        <label for="body">Opinion</label><br/>
+	        <%= f.text_area :body %>
+	      </div>
+        
+        <div class="mb-3">
+        	<%= f.submit "Update Book" ,class:"btn btn-success"%>
+        </div>
+      <%end%>
+      
+      <%=link_to "Show",book_path(@book.id)%><span>|</span>
+      <%=link_to "Back",books_path %>
+     
+    </div>
+  </div>
+</div>
+

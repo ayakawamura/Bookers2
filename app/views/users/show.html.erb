@@ -1,22 +1,38 @@
 <!--ユーザーごとの投稿画面-->
+<div class="container mt-3">
+  <div class="row mx-auto">
+    <div class ="col-lg-4">
+      
+      <%= render "books/profile_new",user:@user %>
 
-<h1>Books</h1>
-
-  <table class="table table-striped" >
-    <tbody>         
-      <tr>
-        <th>Title</th>
-        <th>Opinion</th>
-      </tr>
-
-      <%= @books.each do |book| %>      
-          <tr>
-            <td><%=attachment_image_tag user,:profile_image,:fill,10,10,format: 'jpeg', fallback: "no_image.jpg" %></td>
-            <td><%=user.name %></td>
-            <td><%=link_to "Show",user_path(user.id) %></td>
-          </tr>
+     
+    </div>
+    
+    <div class="col-lg-6">
+      
+        <h1>Books</h1>
+      
+          <table class="table table-striped" >
+            <thead>         
+              <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Opinion</th>
+              </tr>
+            </thead>
             
-    </tbody>
+            <tbody>
+              <%= @books.each do |book| %>      
+                <tr>
+                  <td><%=attachment_image_tag @user,:profile_image,:fill,10,10,format: 'jpeg', fallback: "no_image.jpg" %></td>
+                  <td><%= link_to book.title, book_path(book.id)%></td>
+                  <td><%=book.body %></td>
+                </tr>
+              <%end%>
+            </tbody>
             
-  </table>
-          
+          </table>
+    </div>
+    
+  </div>
+</div>
