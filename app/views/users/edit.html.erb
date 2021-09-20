@@ -4,6 +4,17 @@
 
 			<h1>Users info</h1>
 			
+			<!--更新失敗メッセージ-->
+			<div class="text-danger mb-3">
+			  <% if @user.errors.any?%>
+			    <h2><%=@user.errors.count%>error prohibited this obj from being saved:</h2>
+			    <% @user.errors.full_messages.each do |message| %>
+			      <li><%= message %></li>
+			    <%end%>
+			  <%end%>
+			</div>
+			
+			<!--入力フォーム-->
 				<%= form_with model:@user,local:true do |f| %>
 				  <div class="mb-3">
 					<label for="name">Name</label><br/>

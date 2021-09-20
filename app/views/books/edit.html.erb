@@ -4,6 +4,16 @@
 			
 			<h1>Editing Book</h1>
 			
+			<!--編集失敗メッセージ-->
+			<div class="text-danger mb-3">
+			  <% if @book.errors.any?%>
+			    <h2><%=@book.errors.count%>error prohibited this obj from being saved:</h2>
+			    <% @book.errors.full_messages.each do |message| %>
+			      <li><%= message %></li>
+			    <%end%>
+			  <%end%>
+			</div>
+			
 		  <%= form_with model:@book ,local:true do |f|%>
         <div class="mb-3">
 	        <label for="title">Title</label><br/>
