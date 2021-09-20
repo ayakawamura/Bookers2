@@ -88,7 +88,26 @@
         </div>
       </nav>
     </header>
-
+    
+  <!--ログイン/サインアップ/ログアウトメッセージ-->
+    <%#= render "partial/header" %>
+  <% if flash[:notice] %>
+    <div class="text-success">
+    <%= flash[:notice] %>
+    </div>
+  <% end %>
+ <!--失敗した時-->
+  <% if flash[:alert] %>
+    <div class="text-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+    
+    
+    
+  <%# flash.each do |key,value|%>
+    <%#= content_tag (:div, value, class: "#{key}") %>
+  <%#end%>
 
     <%= yield %>
 
