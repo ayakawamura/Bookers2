@@ -1,9 +1,9 @@
 
 <!--新規投稿の失敗　バリデーション-->
 <div class="text-danger mb-3">
-  <% if book.errors.any?%>
-    <h2><%=book.errors.count%>error prohibited this obj from being saved:</h2>
-    <% book.errors.full_messages.each do |message| %>
+  <% if newbook.errors.any?%>
+    <h2><%=newbook.errors.count%>error prohibited this obj from being saved:</h2>
+    <% newbook.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <%end%>
   <%end%>
@@ -11,45 +11,45 @@
 
 <h1>User info</h1>
 
-          <%= image_tag("no_image.jpg")%>
-          <%#= attachment_image_tag user,:profile_image,:fill,20,20,format:"jpeg",fallback:"no_image.jpg"%>
+<div class="image mb-3">
+    <%#= image_tag("no_image.jpg")%>
+    <%= attachment_image_tag user,:profile_image,:fill,100,100,format:"jpeg",fallback:"no_image.jpg",size:"100x100" %>
+</div>
 
-          <table class="table table-striped">
-            <tbody>
-                <tr>
-                  <th>name</th>
-                  <th><%= user.name %></th>
-                </tr>
-                <tr>
-                  <th>introduction</th>
-                  <th><%= user.introduction %></th>
-                </tr>
+<table class="table table-white">
+  <tbody>
+    <tr>
+      <th>name</th>
+      <th><%= user.name %></th>
+    </tr>
+    <tr>
+      <th>introduction</th>
+      <th><%= user.introduction %></th>
+    </tr>
+  </tbody>
+</table>
+
+<!--ユーザー編集ボタン-->
+<%#if user.id==current_user.id %>
+  <%=link_to edit_user_path(@user.id),class:"btn btn-outline-secondary btn-block mb-3" do %>
+    <i class="fas fa-user-cog"></i>
+  <%end%>
+<%#end%>
 
 
-            </tbody>
-          </table>
+<h1>New book</h1>
+  <%= form_with model: @newbook,local:true do |f| %>
+    
+    <div class="mb-3">
+      <label for="title">Title</label><br/>
+      <%=f.text_field :title %>
+    </div>
 
-          <!--ユーザー編集ボタン-->
-                <%if user.id==current_user.id %>
-                  <%=link_to edit_user_path(@user.id),class:"btn btn-outline-secondary btn-block mb-3" do %>
-                    <i class="fas fa-user-cog"></i>
-                  <%end%>
-                <%end%>
+    <div class="mb-3">
+      <label for="body">Opinion</label><br/>
+      <%=f.text_area :body %>
+    </div>
 
+    <%=f.submit "Create Book" ,class:"btn btn-success btn-x"%>
 
-        <h1>New book</h1>
-
-          <%= form_with model:@book,local:true do |f| %>
-            <div class="mb-3">
-                <label for="title">Title</label><br/>
-                <%=f.text_field :title %>
-            </div>
-
-            <div class="mb-3">
-                <label for="body">Opinion</label><br/>
-                <%=f.text_area :body %>
-            </div>
-
-            <%=f.submit "Create Book" ,class:"btn btn-success btn-x"%>
-
-          <%end%>
+    <%end%>
