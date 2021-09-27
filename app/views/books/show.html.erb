@@ -32,6 +32,9 @@
                 <!--削除のアラートを-->
                 <td><%= link_to "Destroy",book_path(@book.id),method: :delete,"data-confirm"=>"本当に消しますか？",class:"btn btn-danger btn-sm"%></td>
               <%end%>
+              
+              <td><%= render"books/favorite",book:@book %></td>
+                
             </tr>
           </tbody>
         </table>

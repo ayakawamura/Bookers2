@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'favorites/create'
+  get 'favorites/destroy'
   # get 'users/show'
   # get 'users/edit'
   # get 'books/index'
@@ -11,8 +13,10 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "home/about" => "homes#about"
 
-  resources :books,only:[:index,:create,:show,:edit,:update,:destroy]
-
+  resources :books,only:[:index,:create,:show,:edit,:update,:destroy] do
+    resource :favorites,only:[:create,:destroy]
+  end
+  
   resources :users,only:[:show,:edit,:update,:index]
-
+   
 end
