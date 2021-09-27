@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/10753573b8.js" crossorigin="anonymous"></script>
+
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!--bootstrap-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+
+          <!--bookersボタン-->
+          <a class="navbar-brand p-3" href="root_path"><span>Bookers</span>
+            <%#=link_to "Bookers",root_path ,class:"nav-link text-light"%>
+          </a>
+
+          <!--naviボタン-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!--ボタンの中に隠す要素 任意のidを指定する-->
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ml-auto">
+
+              <% if user_signed_in? %>
+                <li>
+                  <%= link_to user_path(current_user.id) ,class:"nav-link " do %>
+                    <i class="fas fa-home" ></i><span>Home</span>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to users_path, class:"nav-link text-light" do%>
+                    <i class="fas fa-users"></i><span>Users</span>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to books_path,class:"nav-link text-light" do%>
+                    <i class="fas fa-book-open"></i><span>Books</span>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete ,class:"nav-link text-light" do%>
+                    <i class="fas fa-sign-out-alt"></i><span>logout</span>
+                  <%end%>
+                </li>
+
+              <% else %>
+
+                <li>
+                  <%= link_to root_path ,class:"nav-link text-light" do %>
+                    <i class="fas fa-home" ></i><span>Home</span>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to home_about_path ,class:"nav-link text-light" do%>
+                    <i class="fas fa-link"></i><span>About</span>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to new_user_registration_path ,class:"nav-link text-light" do%>
+                    <i class="fas fa-user-plus"></i><span>sign up</span>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to new_user_session_path ,class:"nav-link text-light" do%>
+                    <i class="fas fa-sign-in-alt"></i>login
+                    <%end%>
+                </li>
+
+              <% end %>
+            </ul>
+            
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+  <!--ログイン/サインアップ/ログアウトメッセージ-->
+    <%#= render "partial/header" %>
+  <% if flash[:notice] %>
+    <div class="text-success">
+    <%= flash[:notice] %>
+    </div>
+  <% end %>
+ <!--失敗した時-->
+  <% if flash[:alert] %>
+    <div class="text-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+    
+    
+    
+  <%# flash.each do |key,value|%>
+    <%#= content_tag (:div, value, class: "#{key}") %>
+  <%#end%>
+
+    <%= yield %>
+
+
+    <footer>
+      <div class="container mt-5">
+        <div class="row">
+          <p class="mx-auto">CopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+
+</html>

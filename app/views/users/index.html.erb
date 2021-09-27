@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row mx-auto">
+      
+    <div class="col-md-3">
+      <%= render "books/profile_new",user:@user ,book:@book,newbook:@newbook %>
+    </div>
+      
+      
+      
+    <div class="col-md-8 offset-md-1 pt-3 ">
+      <h1>Users</h1>
+        
+        <table class="table table-hover" >
+          <thead>
+            <tr>
+              <th style="width: 30%">image</th>
+              <th style="width: 50%">name</th>
+              <th style="width: 20%"></th>
+            </tr>
+          </thead>
+            
+          <tbody>
+            <% @users.each do |user| %>
+            <tr>
+              <td><%#= image_tag("no_image.jpg")%>
+                <%=attachment_image_tag user,:profile_image,:fill,50,50,format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %></td>
+              <td><%=user.name %></td>
+              <td><%=link_to "Show",user_path(user.id) %></td>
+            </tr>
+            <%end%>
+          </tbody>  
+          
+            
+        </table>
+    </div>
+  </div>
+</div>
+          
+     
