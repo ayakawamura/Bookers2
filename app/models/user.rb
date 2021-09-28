@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :books,dependent: :destroy
   has_many :favorites,dependent: :destroy
+  has_many :book_comments,dependent: :destroy
   
   # 名前２文字〜２０まで　同じ名前でsign_upはできない
   validates :name,length: {minimum:2,maximum:20},uniqueness: true

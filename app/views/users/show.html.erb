@@ -16,9 +16,10 @@
         <table class="table table-hover table-inverse" >
           <thead>
             <tr>
-              <th style="width: 20%"></th>
-              <th style="width: 30%">Title</th>
-              <th style="width: 50%">Opinion</th>
+              <th style="width: "></th>
+              <th style="width: ">Title</th>
+              <th style="width: ">Opinion</th>
+              <th></th>
             </tr>
           </thead>
 
@@ -31,6 +32,8 @@
                 </td>
                 <td><%= link_to book.title, book_path(book.id)%></td>
                 <td><%=book.body %></td>
+                <!--コメント数カウント-->
+                <td>コメント数<%= book.book_comments.count %></td>
               </tr>
             <%end%>
           </tbody>
