@@ -59,7 +59,7 @@
 
       <!--コメントフォーム-->
       <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
-        <%= f.text_area :comment, rows:'5',placeholder: "", class:"form-control" %>
+        <%= f.text_area :comment, rows:'',placeholder: "", class:"form-control" %>
         <%= f.submit "送信する" %>
       <% end %>
       
