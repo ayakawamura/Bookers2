@@ -10,6 +10,12 @@ class User < ApplicationRecord
   has_many :favorites,dependent: :destroy
   has_many :book_comments,dependent: :destroy
   
+  has_many :active_follows,class_name:"Relationship",foreign_key:"follower_id",dependent: :destroy
+  has_many :passive_follows,class_name:"Relationship",foreign_key:"followed_id",dependent: :destroy
+  
+  has_many :followers,through: :active_follows,source: :followed
+  has_many :followeds,through: :passive_follows,source: :follower
+  
   # 名前２文字〜２０まで　同じ名前でsign_upはできない
   validates :name,length: {minimum:2,maximum:20},uniqueness: true
   validates :introduction,length:{maximum:50}

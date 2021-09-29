@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     resources :book_comments,only:[:create,:destroy]
   end
   
-  resources :users,only:[:show,:edit,:update,:index]
-   
-  resources :books,only:[:index,:create,:show,:edit,:update,:destroy]
+  resources :users,only:[:show,:edit,:update,:index] do
+    resources :relationships,only:[:create,:destroy]
+  end
 
 end
