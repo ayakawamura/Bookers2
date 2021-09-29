@@ -25,10 +25,7 @@ class BooksController < ApplicationController
     @book=Book.find(params[:id])
     @newbook=Book.new
     @user=@book.user
-<<<<<<< HEAD
     @book_comment=BookComment.new
-=======
->>>>>>> origin/main
   end
 
   def edit
