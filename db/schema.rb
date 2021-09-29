@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_09_27_102610) do
 
   create_table "book_comments", force: :cascade do |t|
@@ -19,6 +20,9 @@ ActiveRecord::Schema.define(version: 2021_09_27_102610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+=======
+ActiveRecord::Schema.define(version: 2021_09_16_065527) do
+>>>>>>> origin/main
 
   create_table "books", force: :cascade do |t|
     t.text "title"
@@ -28,6 +32,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_102610) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
@@ -35,6 +40,8 @@ ActiveRecord::Schema.define(version: 2021_09_27_102610) do
     t.datetime "updated_at", null: false
   end
 
+=======
+>>>>>>> origin/main
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

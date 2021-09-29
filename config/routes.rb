@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get "home/about" => "homes#about"
 
+<<<<<<< HEAD
   resources :books,only:[:index,:create,:show,:edit,:update,:destroy] do
     resource :favorites,only:[:create,:destroy]
     resources :book_comments,only:[:create,:destroy]
@@ -18,4 +19,10 @@ Rails.application.routes.draw do
   
   resources :users,only:[:show,:edit,:update,:index]
    
+=======
+  resources :books,only:[:index,:create,:show,:edit,:update,:destroy]
+
+  resources :users,only:[:show,:edit,:update,:index]
+
+>>>>>>> origin/main
 end
