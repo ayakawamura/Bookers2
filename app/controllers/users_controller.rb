@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   # 他人のアカウント編集ができなくなる
   #before_action :signed_in_user,only:[:edit,:update]
-  #before_action :correct_user,only:[:edit,:update]
+  before_action :ensure_correct_user,only:[:edit,:update]
 
   def index
     @users=User.all
@@ -18,11 +18,11 @@ class UsersController < ApplicationController
 
   def edit
     @user=User.find(params[:id])
-    if @user == current_user
-      render :edit
-    else
-      redirect_to user_path(current_user)
-    end
+    # if @user == current_user
+    #   render :edit
+    # else
+    #   redirect_to user_path(current_user)
+    # end
   end
 
   def update
@@ -38,14 +38,14 @@ class UsersController < ApplicationController
   
   def following
     @user=User.find_by(id: params[:id])
-    @users=@user.following
-    render following_user_path(@user)
+    @users=@user.follower
+    #render following_user_path(@user)
   end
   
   def followers
     @user=User.find_by(id: params[:id])
-    @users=@user.followers
-    render followers_user_path(@user)
+    @users=@user.followed
+    #render followers_user_path(@user)
   end
     
     
@@ -54,10 +54,12 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name,:profile_image,:introduction)
   end
 
-  # def correct_user
-  #   @user=User.find(params[:id])
-  #   redirect_to user_path(@user.id),notice:"Please"unless current_user?(@user)
-  # end
+  def ensure_correct_user
+    @user=User.find(params[:id])
+    unless @user==current_user
+    redirect_to user_path(current_user)
+    end
+  end
 
 
 end

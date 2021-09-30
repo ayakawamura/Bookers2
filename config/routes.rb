@@ -10,7 +10,11 @@ Rails.application.routes.draw do
 
   root to: "homes#top"
   get "home/about" => "homes#about"
-
+  
+  
+  #resources :relationships,only:[:create,:destroy]
+  post 'follow/:id' => 'relationships#follow', as: 'follow' 
+  post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' 
 
   resources :books,only:[:index,:create,:show,:edit,:update,:destroy] do
     resource :favorites,only:[:create,:destroy]
@@ -23,9 +27,4 @@ Rails.application.routes.draw do
     end
   end
   
-  #resources :relationships,only:[:create,:destroy]
-   post 'follow/:id' => 'relationships#follow', as: 'follow' 
-    post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' 
-  
-
 end

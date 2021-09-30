@@ -43,12 +43,23 @@
   </tbody>
 </table>
 
+<!--フォローボタン-->
+<div class="mb-2">
+  <% unless user.id==current_user.id %>
+    <% if current_user.following?(user) %>
+      <%= link_to "フォロー外す",unfollow_path(user.id), method: :POST,class:"btn btn-success btn-sm" %>
+    <% else %>
+      <%= link_to "フォローする",follow_path(user.id), method: :POST ,class:"btn btn-success btn-sm"%>
+    <% end %>
+  <% end %>
+</div>
+
 <!--ユーザー編集ボタン-->
-<%#if user.id==current_user.id %>
-  <%=link_to edit_user_path(@user.id),class:"btn btn-outline-secondary btn-block mb-3" do %>
+<%if user.id==current_user.id %>
+  <%=link_to edit_user_path(@user.id),class:"btn btn-outline-secondary btn-block btn-sm mb-3" do %>
     <i class="fas fa-user-cog"></i>
   <%end%>
-<%#end%>
+<%end%>
 
 
 <h1>New book</h1>
