@@ -21,8 +21,7 @@ class UsersController < ApplicationController
     if @user == current_user
       render :edit
     else
-      redirect_to user_path(current_user
-      )
+      redirect_to user_path(current_user)
     end
   end
 
@@ -36,7 +35,20 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
+  
+  def following
+    @user=User.find_by(id: params[:id])
+    @users=@user.following
+    render following_user_path(@user)
+  end
+  
+  def followers
+    @user=User.find_by(id: params[:id])
+    @users=@user.followers
+    render followers_user_path(@user)
+  end
+    
+    
   private
   def user_params
     params.require(:user).permit(:name,:profile_image,:introduction)

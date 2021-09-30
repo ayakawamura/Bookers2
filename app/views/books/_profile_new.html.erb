@@ -28,11 +28,17 @@
     </tr>
     <tr>
       <th>follows</th>
-      <th><%= link_to "フォローしてる人.count" %></th>
+      <th><%= link_to following_user_path(user) do %>
+          <%= user.follower.count%>
+        <%end%>
+      </th>
     </tr>
     <tr>
       <th>followers</th>
-      <th><%= link_to "フォローされてる人.count" %></th>
+      <th><%= link_to followers_user_path(user) do %>
+          <%= user.followed.count %>
+        <%end%>
+      </th>
     </tr>
   </tbody>
 </table>

@@ -17,10 +17,15 @@ Rails.application.routes.draw do
     resources :book_comments,only:[:create,:destroy]
   end
 
-  resources :users,only:[:show,:edit,:update,:index] 
-  resources :relationships,only:[:create,:destroy]
-    get "relationships/follower" => "relationships#follower"
-    get "relationships/followed" => "relationships#followed"
+  resources :users,only:[:show,:edit,:update,:index] do
+    member do
+    get :following, :followers
+    end
+  end
+  
+  #resources :relationships,only:[:create,:destroy]
+   post 'follow/:id' => 'relationships#follow', as: 'follow' 
+    post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' 
   
 
 end
