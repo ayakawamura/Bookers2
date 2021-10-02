@@ -10,28 +10,33 @@ class User < ApplicationRecord
   has_many :favorites,dependent: :destroy
   has_many :book_comments,dependent: :destroy
   
-  # 中間テーブル（relation）目線のアソシエーション
+  # 中間テーブルのアソシエーション
+  # follower （フォローする側）の記述
+  # userとrelationship繋ぐ 　自分がフォローした→相手のフォロワーになったので「follower_id」
+  # フォローされてる側目線
+  has_many :relationships,class_name:"Relationship",foreign_key:"follower_id",dependent: :destroy
+  #フォローしてる人を取得するための記述 中間テーブルとfollowerを繋ぐ
+  # フォローしてる側目線　followed(自分にフォローされてる人たち)＝自分がフォローしてる人
+  has_many :following_user,through: :relationships, source: :followed
+
   # followed （フォローされる人）
   # フォローされてる人を取得
   has_many :reverse_of_relationships,class_name:"Relationship",foreign_key:"followed_id",dependent: :destroy
   # そのうち自分をフォローしてる人(自分がフォローされている人)
   has_many :follower_user,through: :reverse_of_relationships , source: :follower
   
-  # follower （フォローしてる側）の記述
-  # userとrelationship繋ぐ 
-  has_many :relationships,class_name:"Relationship",foreign_key:"follower_id",dependent: :destroy
-  #フォローしてる人を取得 中間テーブルとfollowerを繋ぐ
-  has_many :following_user,through: :relationships, source: :followed
-
+  
     # ユーザーをフォローする関数
-    # フォローされる人のid=user_id
+    # self=大体current_user
   def follow(other_user)
-   unless self==other_user
+   unless self == other_user
        self.relationships.find_or_create_by(followed_id: other_user.id)
+       # followed_idにother_user.idを入れる（コントローラで@user取得）
    end
   end
   # ユーザーのフォローを外す
   def unfollow(other_user)
+   # idが２つの時はfind_by
    relationship = self.relationships.find_by(followed_id: other_user.id)
     relationship.destroy if relationship
   end

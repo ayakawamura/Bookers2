@@ -10,10 +10,9 @@ Rails.application.routes.draw do
 
   root to: "homes#top"
   get "home/about" => "homes#about"
-  
-  
 
   resources :books,only:[:index,:create,:show,:edit,:update,:destroy] do
+    # いいね自体にIDはいらないので単数系
     resource :favorites,only:[:create,:destroy]
     resources :book_comments,only:[:create,:destroy]
   end
@@ -25,8 +24,6 @@ Rails.application.routes.draw do
     resource :relationships,only:[:create,:destroy]
     get 'following' => 'relationships#following', as: 'following'
     get 'followers' => 'relationships#followers', as: 'followers'
+        # as以下は○○_path部分の指定
   end
-  
-  #resources :relationships,only:[:create,:destroy]
-  
 end
