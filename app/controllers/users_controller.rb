@@ -37,14 +37,14 @@ class UsersController < ApplicationController
   end
   
   def following
-    @user=User.find_by(id: params[:id])
-    @users=@user.follower
+    @user=User.find(params[:id])
+    @users=@user.following_user
     #render following_user_path(@user)
   end
   
   def followers
-    @user=User.find_by(id: params[:id])
-    @users=@user.followed
+    @user=User.find(params[:id])
+    @users=@user.follower_user
     #render followers_user_path(@user)
   end
     

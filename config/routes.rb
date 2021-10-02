@@ -12,9 +12,6 @@ Rails.application.routes.draw do
   get "home/about" => "homes#about"
   
   
-  #resources :relationships,only:[:create,:destroy]
-  post 'follow/:id' => 'relationships#follow', as: 'follow' 
-  post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' 
 
   resources :books,only:[:index,:create,:show,:edit,:update,:destroy] do
     resource :favorites,only:[:create,:destroy]
@@ -25,6 +22,11 @@ Rails.application.routes.draw do
     member do
     get :following, :followers
     end
+    resource :relationships,only:[:create,:destroy]
+    get 'following' => 'relationships#following', as: 'following'
+    get 'followers' => 'relationships#followers', as: 'followers'
   end
+  
+  #resources :relationships,only:[:create,:destroy]
   
 end

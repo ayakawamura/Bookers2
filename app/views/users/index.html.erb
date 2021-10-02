@@ -9,47 +9,8 @@
       
     <div class="col-md-8 offset-md-1 pt-3 ">
       <h1>Users</h1>
-        
-        <table class="table table-hover" >
-          <thead>
-            <tr>
-              <th style="width: ">image</th>
-              <th style="width: ">name</th>
-              <th style="width: "></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-            
-          <tbody>
-            <% @users.each do |user| %>
-            <tr>
-              <td><%#= image_tag("no_image.jpg")%>
-                <%=attachment_image_tag user,:profile_image,:fill,50,50,format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %></td>
-              <td><%=user.name %></td>
-              
-              <td>フォロー数:<%= user.follower.count %></td>
-              <td>フォロワー数:<%= user.followed.count %></td>
-              
-              <!--フォロー機能-->
-              <td>
-              <% unless current_user == user %>
-                <% if current_user.following?(user) %>
-                  <p><%= link_to "フォロー外す",unfollow_path(user.id), method: :POST %></p>
-                <% else %>
-                  <p><%= link_to "フォローする",follow_path(user.id), method: :POST %></p>
-                <% end %>
-              <% end %>
-              </td>
-              
-              <td><%=link_to "Show",user_path(user.id) %></td>
-            </tr>
-            <%end%>
-          </tbody>  
-          
-            
-        </table>
+      <!--ユーザー一覧-->
+      <%= render "users_table",users:@users %>
     </div>
   </div>
 </div>

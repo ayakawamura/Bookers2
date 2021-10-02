@@ -19,7 +19,7 @@ class BookCommentsController < ApplicationController
     params.require(:book_comment).permit(:comment)
   end
 
-  # destroyの
+  # destroyは本人のみ
   def ensure_correct_user
     @book=BookComment.find_by(id:params[:id])
     unless @book.user == current_user
