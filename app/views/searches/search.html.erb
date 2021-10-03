@@ -2,12 +2,12 @@
 <div class="container pt-3 mx-auto">
 	<div class="row">
 		
-		<h2>Results index</h2>
-		
-		<% if @range=="User" %>
+		<% if @model=="User" %>
+			<h2>Users search for "<%= @word %>"</h2>
 			<%= render "users/users_table", users:@users %>
 			
 		<% else %>
+			<h2>Books search for "<%= @word %>"</h2>
 			<%= render "books/books_table", books:@books %>
 			
 		<% end %>
