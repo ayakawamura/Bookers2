@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   # get 'books/edit'
   # get 'homes/top'
   devise_for :users
-  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: "homes#top"
@@ -28,6 +27,7 @@ Rails.application.routes.draw do
     get 'following' => 'relationships#following', as: 'following'
     get 'followers' => 'relationships#followers', as: 'followers'
         # as以下は○○_path部分の指定
-        
   end
+  
+  get "search" => "searches#search", as: "search"
 end
