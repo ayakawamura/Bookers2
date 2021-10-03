@@ -88,6 +88,12 @@
           </div>
         </div>
       </nav>
+      
+      <!--検索フォーム-->
+      <div class="col-lg-5 mx-auto pt-2">
+        <%= render "searches/searchform" %>
+      </div>
+    
     </header>
     
   <!--ログイン/サインアップ/ログアウトメッセージ-->
@@ -104,9 +110,7 @@
     </div>
   <% end %>
   
-  <!--検索フォーム-->
-  <%= render "searches/searchform" %>
-    
+  
   
   <%= yield %>
 

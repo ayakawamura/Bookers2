@@ -1,0 +1,16 @@
+<!--検索結果一覧-->
+<div class="container pt-3 mx-auto">
+	<div class="row">
+		
+		<h2>Results index</h2>
+		
+		<% if @range=="User" %>
+			<%= render "users/users_table", users:@users %>
+			
+		<% else %>
+			<%= render "books/books_table", books:@books %>
+			
+		<% end %>
+		
+	</div>
+</div>

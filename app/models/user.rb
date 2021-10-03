@@ -42,6 +42,21 @@ class User < ApplicationRecord
   def following?(other_user)
    self.following_user.include?(other_user)
   end
+  
+  # 検索フォームの分岐
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @user = User.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @user = User.where("name LIKE?","#{word}%")
+    elsif search == "backword_match"
+      @user = User.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @user = User.where("name LIKE?","%#{word}%")
+    else
+      @user = User.all
+    end
+  end
  
   
   # 名前２文字〜２０まで　同じ名前でsign_upはできない
