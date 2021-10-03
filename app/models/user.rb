@@ -13,16 +13,14 @@ class User < ApplicationRecord
   # 中間テーブルのアソシエーション
   # follower （フォローする側）の記述
   # userとrelationship繋ぐ 　自分がフォローした→相手のフォロワーになったので「follower_id」
-  # フォローされてる側目線
   has_many :relationships,class_name:"Relationship",foreign_key:"follower_id",dependent: :destroy
   #フォローしてる人を取得するための記述 中間テーブルとfollowerを繋ぐ
-  # フォローしてる側目線　followed(自分にフォローされてる人たち)＝自分がフォローしてる人
+  # フォローしてる側目線　自分がフォローしてる人＝followed(自分にフォローされてる人たち)
   has_many :following_user,through: :relationships, source: :followed
 
   # followed （フォローされる人）
-  # フォローされてる人を取得
   has_many :reverse_of_relationships,class_name:"Relationship",foreign_key:"followed_id",dependent: :destroy
-  # そのうち自分をフォローしてる人(自分がフォローされている人)
+  # 自分をフォローしてる人(自分がフォローされている人)
   has_many :follower_user,through: :reverse_of_relationships , source: :follower
   
   

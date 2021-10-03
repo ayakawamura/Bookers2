@@ -36,17 +36,16 @@ class UsersController < ApplicationController
     end
   end
   
-  def following
-    @user=User.find(params[:id])
-    @users=@user.following_user
-    #render following_user_path(@user)
-  end
+# userコントローラーに一覧ベージを作る場合の記述
+  # def following
+  #   @user=User.find(params[:id])
+  #   @users=@user.following_user
+  # end
   
-  def followers
-    @user=User.find(params[:id])
-    @users=@user.follower_user
-    #render followers_user_path(@user)
-  end
+  # def followers
+  #   @user=User.find(params[:id])
+  #   @users=@user.follower_user
+  # end
     
     
   private
