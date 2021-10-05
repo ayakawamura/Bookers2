@@ -3,20 +3,22 @@ class BookCommentsController < ApplicationController
 
   def create
     @book=Book.find(params[:book_id])
-    book_comment=current_user.book_comments.new(book_comment_params)
+    # book_comment=current_user.book_comments.new(book_comment_params)下記2行に書き換え
+    book_comment=BookComment.new(book_comment_params)
+    book_comment.user_id=current_user.id
     book_comment.book_id=@book.id
     book_comment.save
-    # 非同期通信　create.js.erbを表示するので変数記載（booksコントローラと同じでOK）
-    @book_comment=BookComment.new
     # redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    BookComment.find_by(id:params[:id]).destroy
+    # BookComment.find_by(id:params[:id]).destroy　下記3行に書き換え
+    book=Book.find(params[:book_id])
+    book_comment=book.book_comments.find(params[:id])
+    book_comment.destroy
     # redirect_back(fallback_location: root_path)
     # 非同期通信　create.js.erbを表示するので変数記載
     @book=Book.find(params[:book_id])
-    @book_comment=BookComment.new
   end
 
   private

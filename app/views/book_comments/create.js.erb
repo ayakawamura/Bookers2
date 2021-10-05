@@ -1,4 +1,10 @@
 <!--functionはあってもなくても変わらん-->
 $(function(){
-	$("#comments_area").html("<%= j(render "book_comments/comments", book: @book,book_comment: @book_comment) %>");
+	<!--コメント一覧-->
+	$("#comments_area").html("<%= j(render "book_comments/comments", book: @book) %>");
+	<!--コメントフォームが毎回まっさらになる　idはform_withに勝手に付与されるのでデベロッパーツールで確認-->
+	$("#book_comment_comment").val("");
+	<!--コメント数-->
+	$(".comments_count").html("コメント数:<%= @book.book_comments.count %>");
+	
 });

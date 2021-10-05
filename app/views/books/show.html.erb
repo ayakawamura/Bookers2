@@ -37,8 +37,8 @@
 
             <!--いいねボタン/非同期通信-->
             <td id="favorites_<%=@book.id%>"><%= render "books/favorite",book: @book %></td>
-            <!--コメント数カウント-->
-            <td>コメント数:<%= @book.book_comments.count %></td>
+            <!--コメント数カウント/非同期通信-->
+            <td class="comments_count">コメント数:<%= @book.book_comments.count %></td>
 
           </tr>
         </tbody>
@@ -49,11 +49,11 @@
         <%= render "book_comments/comments", book:@book,book_comment:@book_comment %>
       </div>
 
-      <!--コメントフォーム-->
-      <!--<%= form_with(model:[@book, @book_comment], remote: true) do |f| %>-->
-      <!--  <%= f.text_area :comment, rows:'5',placeholder: "コメントを入れてね", class:"form-control" %>-->
-      <!--  <%= f.submit "送信する" %>-->
-      <!--<% end %>-->
+      コメントフォーム
+      <%= form_with(model:[@book, @book_comment], remote: true) do |f| %>
+        <%= f.text_area :comment, rows:'5',placeholder: "コメントを入れてね", class:"form-control" %>
+        <%= f.submit "送信する" %>
+      <% end %>
 
     </div>
   </div>
