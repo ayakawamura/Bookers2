@@ -11,8 +11,9 @@ class BooksController < ApplicationController
     @newbook.user_id=current_user.id
     # 投稿成功でメッセージ books#showで表示
     if @newbook.save
-      flash[:notice_create]="You have created book successfully."
+      flash[:notice]="You have created book successfully."
       redirect_to book_path(@newbook.id)
+      # redirect_to book_path(@newbook.id),notice:"You have created book successfully." にするとapplication.htmlで表示できる
     else
       @books=Book.all
       @user=User.find(current_user.id)
@@ -40,7 +41,7 @@ class BooksController < ApplicationController
   def update
     @book=Book.find(params[:id])
     if @book.update(book_params)
-      flash[:notice_update]="You have updated book successfully."
+      flash[:notice_book]="You have updated book successfully."
       redirect_to book_path(@book.id)
     else
       render :edit

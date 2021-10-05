@@ -8,7 +8,7 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    
+    # 非同期通信でviewで使う用にインスタンス変数にする
     @book=Book.find(params[:book_id])
     favorite=current_user.favorites.find_by(book_id: @book.id)
     favorite.destroy
