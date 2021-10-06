@@ -57,6 +57,10 @@ class User < ApplicationRecord
       @user = User.all
     end
   end
+  
+  # グループ機能
+  has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users
  
   
   # 名前２文字〜２０まで　同じ名前でsign_upはできない
