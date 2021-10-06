@@ -1,0 +1,10 @@
+<div class="col-md-3">
+  <%= render "books/profile_new",user:@user ,book:@book,newbook:@newbook %>
+</div>
+  
+<div class="col-md-8 offset-md-1 pt-3 ">
+  <h1>Groups</h1>
+
+  <!--グループ一覧-->
+  <%= render "groups_table",groups:@groups %>
+</div>

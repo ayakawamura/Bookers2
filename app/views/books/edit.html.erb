@@ -1,39 +1,27 @@
-<div class="container">
-	<div class="row">
-		<div class=col-lg-8 col-10 mx-auto>
-			
-			<h1>Editing Book</h1>
-			
-			<!--編集失敗メッセージ-->
-			<div class="text-danger mb-3">
-			  <% if @book.errors.any?%>
-			    <h2><%=@book.errors.count%>error prohibited this obj from being saved:</h2>
-			    <% @book.errors.full_messages.each do |message| %>
-			      <li><%= message %></li>
-			    <%end%>
-			  <%end%>
-			</div>
-			
-		  <%= form_with model:@book ,local:true do |f|%>
-        <div class="mb-3">
-	        <label for="title">Title</label><br/>
-	        <%= f.text_field :title %>
-	      </div>
-        
-        <div class="mb-3">
-	        <label for="body">Opinion</label><br/>
-	        <%= f.text_area :body %>
-	      </div>
-        
-        <div class="mb-3">
-        	<%= f.submit "Update Book" ,class:"btn btn-success"%>
-        </div>
-      <%end%>
-      
-      <%=link_to "Show",book_path(@book.id)%><span>|</span>
-      <%=link_to "Back",books_path %>
-     
-    </div>
-  </div>
-</div>
+<div class=col-lg-8 col-10 mx-auto>
+	
+	<h1>Editing Book</h1>
+	
+	<!--編集失敗メッセージ-->
+	<%= render "layouts/error",model:@book %>
 
+  <%= form_with model:@book ,local:true do |f|%>
+    <div class="mb-3">
+      <label for="title">Title</label><br/>
+      <%= f.text_field :title %>
+    </div>
+    
+    <div class="mb-3">
+      <label for="body">Opinion</label><br/>
+      <%= f.text_area :body %>
+    </div>
+    
+    <div class="mb-3">
+    	<%= f.submit "Update Book" ,class:"btn btn-success"%>
+    </div>
+  <%end%>
+  
+  <%=link_to "Show",book_path(@book.id)%><span>|</span>
+  <%=link_to "Back",books_path %>
+ 
+</div>

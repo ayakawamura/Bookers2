@@ -24,9 +24,9 @@
         <div class="container">
 
           <!--bookersボタン-->
-          <a class="navbar-brand p-3" href="root_path"><span>Bookers</span>
-            <%#=link_to "Bookers",root_path ,class:"nav-link text-light"%>
-          </a>
+          <!--<a class="navbar-brand p-3" href="root_path"><span>Bookers</span>-->
+            <%=link_to "Bookers",root_path ,class:"navbar-brand text-light"%>
+          <!--</a>-->
 
           <!--naviボタン-->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,25 +96,30 @@
     
     </header>
     
-  <!--ログイン/サインアップ/ログアウト/(投稿・update)メッセージ-->
-    <%#= render "partial/header" %>
-  <% if flash[:notice] %>
-    <div class="text-success">
-    <%= flash[:notice] %>
+    
+    <div class="container">
+      <div class="row mx-auto">
+        <!--ログイン/サインアップ/ログアウト/(投稿・update)メッセージ-->
+          <%#= render "partial/header" %>
+        <% if flash[:notice] %>
+          <div class="text-success">
+          <%= flash[:notice] %>
+          </div>
+        <% end %>
+       <!--失敗した時-->
+        <% if flash[:alert] %>
+          <div class="text-danger">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="row mx-auto">
+        <%= yield %>
+      </div>
     </div>
-  <% end %>
- <!--失敗した時-->
-  <% if flash[:alert] %>
-    <div class="text-danger">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
-  
-  
-  
-  <%= yield %>
-
-
+      
+      
     <footer>
       <div class="container mt-5">
         <div class="row">

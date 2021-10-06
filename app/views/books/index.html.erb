@@ -1,16 +1,10 @@
-<div class="container">
-  <div class="row mx-auto">
+<div class="col-md-3">
+  <%= render "books/profile_new",user:@user, book:@book ,newbook:@newbook%>
+</div>
 
-      <div class="col-md-3">
-        <%= render "books/profile_new",user:@user, book:@book ,newbook:@newbook%>
-      </div>
-
-      <div class="col-md-8 pt-3 offset-md-1">
-        <!--投稿一覧-->
-        <h1>Books</h1>
-        <%= render "books/books_table",books:@books %>
-        
-      </div>
-
-  </div>
+<div class="col-md-8 pt-3 offset-md-1">
+  <!--投稿一覧-->
+  <h1>Books</h1>
+  <%= render "books/books_table",books:@books %>
+  
 </div>

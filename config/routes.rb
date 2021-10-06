@@ -30,4 +30,6 @@ Rails.application.routes.draw do
   end
   
   get "search" => "searches#search", as: "search"
+  
+  resources :groups
 end

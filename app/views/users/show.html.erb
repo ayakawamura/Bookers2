@@ -2,9 +2,6 @@
 <!--user情報のupdete成功メッセージ-->
 <p class="text-success"><%= flash[:user_update] %></p>
 
-<div class="container mt-3">
-  <div class="row mx-auto">
-    
     <div class ="col-md-3">
       <!--部分テンプレート-->
       <%= render "books/profile_new",user:@user ,book:@book ,newbook:@newbook %>
@@ -42,6 +39,3 @@
 
         </table>
     </div>
-
-  </div>
-</div>

@@ -1,0 +1,25 @@
+<div>
+	<h1>Editing Group</h1>
+	
+	<!--エラーメッセ-->
+	<%= render "layouts/error",model:@group %>
+
+	<%= form_with model: @group, local: true do |f| %>
+		<div class="pb-3">
+			<%= f.label :name,"グループ名" %>
+			<%= f.text_field :name,class: 'form-control' %>
+		</div>
+
+		<div class="pb-3">
+			<%= f.label :introduction, "紹介文" %>
+			<%= f.text_area :introduction ,class: 'form-control' %>
+		</div>
+
+		<div class="pb-3">
+			<%= f.label :image,"グループ画像" %><br/>
+			<%= f.attachment_field :image ,placeholder: "プロフィール画像"%>
+		</div>
+
+		<%= f.submit "Update Group",class: "btn btn-info btn-sm" %>
+	<%end%>
+</div>

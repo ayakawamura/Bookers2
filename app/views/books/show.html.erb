@@ -2,57 +2,52 @@
 <!--投稿成功メッセージ（application.htmlのログインメッセージとまとめても大丈夫）-->
 <p class="text-success"><%= flash[:notice_book] %></p>
 
+<!--部分テンプレート-->
+<div class ="col-md-3">
+  <%= render "books/profile_new",user:@user, newbook:@newbook %>
+</div>
 
-<div class="container">
-  <div class="row mx-auto">
+<div class="col-md-8 offset-md-1 pt-3">
+  <h1>Book detail</h1>
 
-    <!--部分テンプレート-->
-    <div class ="col-md-3">
-      <%= render "books/profile_new",user:@user, newbook:@newbook %>
-    </div>
+  <table class="table table-white mb-5" >
+    <tbody>
+      <tr>
+        <td>
+          <%=link_to user_path(@user.id) do %>
+          <%=attachment_image_tag @user,:profile_image,:fill,50,50,format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %><br/>
+            <%= @user.name %>
+          <%end%>
+        </td>
+        <td><%=link_to @book.title,book_path(@book.id) %></td>
+        <td><%=@book.body%></td>
 
-    <div class="col-md-8 offset-md-1 pt-3">
-      <h1>Book detail</h1>
+        <!--編集・削除ボタン-->
+        <% if @user==current_user %>
+          <td><%= link_to "Edit",edit_book_path(@book.id),class:"btn btn-success btn-sm" %></td>
+          <!--削除のアラートを-->
+          <td><%= link_to "Destroy",book_path(@book.id),method: :delete,"data-confirm"=>"本当に消しますか？",class:"btn btn-danger btn-sm"%></td>
+        <%end%>
 
-      <table class="table table-white" >
-        <tbody>
-          <tr>
-            <td>
-              <%=link_to user_path(@user.id) do %>
-              <%=attachment_image_tag @user,:profile_image,:fill,50,50,format: 'jpeg', fallback: "no_image.jpg",size:"50x50"  %><br/>
-                <%= @user.name %>
-              <%end%>
-            </td>
-            <td><%=link_to @book.title,book_path(@book.id) %></td>
-            <td><%=@book.body%></td>
+        <!--いいねボタン/非同期通信-->
+        <td id="favorites_<%=@book.id%>"><%= render "books/favorite",book: @book %></td>
+        <!--コメント数カウント/非同期通信-->
+        <td class="comments_count">コメント数:<%= @book.book_comments.count %></td>
 
-            <!--編集・削除ボタン-->
-            <% if @user==current_user %>
-              <td><%= link_to "Edit",edit_book_path(@book.id),class:"btn btn-success btn-sm" %></td>
-              <!--削除のアラートを-->
-              <td><%= link_to "Destroy",book_path(@book.id),method: :delete,"data-confirm"=>"本当に消しますか？",class:"btn btn-danger btn-sm"%></td>
-            <%end%>
+      </tr>
+    </tbody>
+  </table>
 
-            <!--いいねボタン/非同期通信-->
-            <td id="favorites_<%=@book.id%>"><%= render "books/favorite",book: @book %></td>
-            <!--コメント数カウント/非同期通信-->
-            <td class="comments_count">コメント数:<%= @book.book_comments.count %></td>
-
-          </tr>
-        </tbody>
-      </table>
-
-      <!--コメント内容/非同期通信のためid記載-->
-      <div id="comments_area">
-        <%= render "book_comments/comments", book:@book,book_comment:@book_comment %>
-      </div>
-
-      コメントフォーム
-      <%= form_with(model:[@book, @book_comment], remote: true) do |f| %>
-        <%= f.text_area :comment, rows:'5',placeholder: "コメントを入れてね", class:"form-control" %>
-        <%= f.submit "送信する" %>
-      <% end %>
-
-    </div>
+  <!--コメント内容/非同期通信のためid記載-->
+  <h2>Comments</h2>
+  <div id="comments_area" class="pb-5">
+    <%= render "book_comments/comments", book:@book,book_comment:@book_comment %>
   </div>
+
+  コメントフォーム
+  <%= form_with(model:[@book, @book_comment], remote: true) do |f| %>
+    <%= f.text_area :comment, rows:'5',placeholder: "コメントを入れてね", class:"form-control" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+
 </div>
