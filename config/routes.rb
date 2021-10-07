@@ -31,5 +31,9 @@ Rails.application.routes.draw do
   
   get "search" => "searches#search", as: "search"
   
-  resources :groups
+  resources :groups do
+    get "join" => "groups#join",as: "join"
+    get "groupdelete" => "groups#groupdelete", as: "groupdelete"
+  end
+  
 end

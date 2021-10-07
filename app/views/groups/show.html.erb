@@ -6,14 +6,34 @@
   <h1>Group　Detail</h1>
   
   <table class="table table-white">
+    <thead>
+      <tr>
+        <th style="width: "></th>
+        <th style="width: ">グループ名</th>
+        <th style="width: ">紹介文</th>
+        <th>メンバー</th>
+        <th></th>
+      </tr>
+    </thead>
   	<tbody>
   		<tr>
   			<td><%= attachment_image_tag @group,:image, :fill,50,50,format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %></td>
   			<td><%= @group.name %></td>
   			<td><%= @group.introduction %></td>
+  			<td>
+  			  <% @group.users.each do |member| %>
+  			    <%= member.name %>
+  			 <% end %>
+  			</td>
+  			
   			<% if @group.owner_id == current_user.id %>
     			<td><%= link_to "Edit",edit_group_path(@group.id) ,class:"btn btn-success btn-sm" %></td>
-  			<%end%>
+    		<% elsif @group.users.include?(current_user) %>
+    			<td><%= link_to "Leave this group",group_path(@group.id),method: :delete ,class:"btn btn-danger btn-sm" %></td>
+    		<% else %>
+    			<td><%= link_to "Join this group",group_join_path(@group.id) ,class:"btn btn-success btn-sm" %></td>
+    		<% end %>
+    		
   		</tr>
   	</tbody>
   </table>
