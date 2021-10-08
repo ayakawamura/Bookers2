@@ -28,12 +28,14 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
         # as以下は○○_path部分の指定
   end
-  
+
   get "search" => "searches#search", as: "search"
-  
+
   resources :groups do
     get "join" => "groups#join",as: "join"
-    get "groupdelete" => "groups#groupdelete", as: "groupdelete"
+    delete "groupdelete" => "groups#groupdelete", as: "groupdelete"
+    get "mail" => "groups#mail",as: "mail"
+    get "send/mail" => "groups#send_mail"
   end
-  
+
 end

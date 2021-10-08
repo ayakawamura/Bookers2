@@ -23,7 +23,7 @@
 		<div class="pb-3">
 			<%= f.submit "Update Group",class: "btn btn-info btn-sm" %>
 		</div>
-		<%= link_to "Delete Group", group_groupdelete_path(@group.id) ,data: {confirm: "グループを削除しますか？"},class:"text text-danger"%>
+		<%= link_to "Delete Group", group_groupdelete_path(@group.id) ,method: :delete,data: {confirm: "グループを削除しますか？"},class:"text text-danger"%>
 
 	<%end%>
 </div>
