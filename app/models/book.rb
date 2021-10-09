@@ -1,11 +1,17 @@
 class Book < ApplicationRecord
 	
 	belongs_to :user
+	
+# 	いいね機能のアソシエーション
 	has_many :favorites,dependent: :destroy
+	  # いいねしたuserを探すときはいいねモデルを中間テーブルにする（無くてもいい）
+  has_many :favorite_users,through: :favorites,source: :user	
+	
 	has_many :book_comments,dependent: :destroy
 	
+# いいね機能で使うメソッドを定義　favoriteした人（user_id）にuser.idを入れる
 	def favorited_by?(user)
-		favorites.where(user_id:user.id).exists?
+		favorites.where(user_id: user.id).exists?
 	end
 	
 	validates :title,presence: true

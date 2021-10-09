@@ -7,7 +7,12 @@ class User < ApplicationRecord
   attachment :profile_image
 
   has_many :books,dependent: :destroy
+  
+  # いいね機能のアソシエーション
   has_many :favorites,dependent: :destroy
+  # いいねしたbookを探すときはいいねモデルを中間テーブルにする（無くてもいい）
+  has_many :favorite_books,through: :favorites,source: :book
+  
   has_many :book_comments,dependent: :destroy
   
   # 中間テーブルのアソシエーション

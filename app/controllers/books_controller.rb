@@ -4,6 +4,10 @@ class BooksController < ApplicationController
     @books=Book.all
     @newbook=Book.new
     @user=User.find(current_user.id)
+    # いいね多い順に並び替え
+    # (:favorites)にはbookモデルのアソシエーションで定義したものを入れる
+    # 今回は(:favorites)もしくは(:favorite_uses)
+    @books=Book.includes(:favorites).sort{|a,b| b.favorites.length <=> a.favorites.size}
   end
 
   def create
