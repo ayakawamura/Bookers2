@@ -1,0 +1,38 @@
+	<p class="text-danger"><%= flash[:alert] %></p>
+
+	<div>
+	<div class="row　pt-3">
+		<h3><% @entries.each do |entry| %>
+		<%= entry.name %><%end%>のチャット</h3>
+
+	</div>
+
+	<div class="row">
+		<div class ="col-lx-5">
+			<!--チャット入力フォーム-->
+		  <%= form_with(model: @message, remote: true) do |f| %>
+		    <%= f.text_field :content %>
+		    <!--メッセージのroom_id絡むに@room.idを入れる-->
+		    <%= f.hidden_field :room_id, value: @room.id %><br/>
+		    <%= f.submit "送信する" %>
+		  <% end %>
+		</div>
+
+
+		<div class="col-5 pt-3 ">
+			<!--メッセージがあるか確認-->
+			<% if @messages.present? %>
+			<!--メッセージ表示-->
+				<% @messages.each do |message|%>
+					<div>
+						<%= message.content %>
+					</div>
+				<%end%>
+			<%else%>
+				<p>メッセージはありません</p>
+			<%end%>
+		</div>
+	</div>
+
+	</div>
+

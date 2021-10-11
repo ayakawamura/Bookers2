@@ -2,9 +2,15 @@
 <!--投稿成功メッセージ（application.htmlのログインメッセージとまとめても大丈夫）-->
 <p class="text-success"><%= flash[:notice_book] %></p>
 
-<!--部分テンプレート-->
 <div class ="col-md-3">
-  <%= render "books/profile_new",user:@user, newbook:@newbook %>
+  <!--新規投稿の失敗　バリデーション-->
+  <%= render "layouts/error",model:@newbook %>
+
+  <h1>User info</h1>
+  <%= render "users/profile" ,user:@user %>
+  
+  <!--book新規投稿-->
+  <%= render "books/newbook",newbook:@newbook %>
 </div>
 
 <div class="col-md-8 offset-md-1 pt-3">

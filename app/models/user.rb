@@ -66,7 +66,12 @@ class User < ApplicationRecord
   # グループ機能
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
- 
+  
+  # チャット
+  has_many :messages,dependent: :destroy
+  
+  has_many :entries,dependent: :destroy
+  has_many :rooms,through: :entries,source: :room
   
   # 名前２文字〜２０まで　同じ名前でsign_upはできない
   validates :name,length: {minimum:2,maximum:20},uniqueness: true

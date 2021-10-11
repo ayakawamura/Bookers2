@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get 'following' => 'relationships#following', as: 'following'
     get 'followers' => 'relationships#followers', as: 'followers'
         # as以下は○○_path部分の指定
-  end
+   end
 
   get "search" => "searches#search", as: "search"
 
@@ -37,5 +37,13 @@ Rails.application.routes.draw do
     get "mail" => "groups#mail",as: "mail"
     get "send/mail" => "groups#send_mail"
   end
+  
+  # チャット
+  resources :rooms,only:[:new,:create,:show]
+    
+  resources :messages,only:[:create]
+  
+  
+
 
 end

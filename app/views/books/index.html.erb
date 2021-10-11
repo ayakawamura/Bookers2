@@ -1,5 +1,14 @@
 <div class="col-md-3">
-  <%= render "books/profile_new",user:@user, book:@book ,newbook:@newbook%>
+  
+<!--新規投稿の失敗　バリデーション-->
+  <%= render "layouts/error",model:@newbook %>
+
+  <h1>User info</h1>
+  <%= render "users/profile" ,user:@user %>
+  
+  <!--book新規投稿-->
+  <%= render "books/newbook",newbook:@newbook %>
+
 </div>
 
 <div class="col-md-8 pt-3 offset-md-1">

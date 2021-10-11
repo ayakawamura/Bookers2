@@ -3,8 +3,34 @@
 <p class="text-success"><%= flash[:user_update] %></p>
 
     <div class ="col-md-3">
-      <!--部分テンプレート-->
-      <%= render "books/profile_new",user:@user ,book:@book ,newbook:@newbook %>
+      
+      <!--新規投稿の失敗　バリデーション-->
+      <%= render "layouts/error",model:@newbook %>
+
+      <%= render "users/profile" ,user:@user %>
+      
+      <!--チャットボタン-->
+      <% if current_user.following?(@user) && @user.following?(current_user) %>
+        <% unless @user.id==current_user.id %>
+          <% if @isRoom == true %>
+          	<%= link_to "チャットを始める",room_path(@roomId)%>
+          <% else %>
+          	<!--Roomの作成　RoomとEntry2つのモデルにデータを送る-->
+          	<%= form_with model: @room, local: true do |f| %>
+          		<%= fields_for @entry do |e| %>
+          			<!--@entryのuser_idに@user.idを入れる-->
+          			<%= e.hidden_field :user_id, value: @user.id %>
+          		<%end%>
+          		<%= f.submit "新しくチャットを始める",class:"text-primary"%>
+          		<%#= link_to "新しくチャットを始める", rooms_path,method: :submit %>
+          		<!--link_toだと何度もチャットを作成してしまう-->
+          	<% end %>
+          <%end%>
+        <%end%>
+      <%end%>
+      
+      <!--book新規投稿-->
+      <%= render "books/newbook",newbook:@newbook %>
     </div>
 
     <div class="col-md-8 pt-3 offset-md-1">
