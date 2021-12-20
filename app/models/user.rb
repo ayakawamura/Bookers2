@@ -7,14 +7,14 @@ class User < ApplicationRecord
   attachment :profile_image
 
   has_many :books,dependent: :destroy
-  
+  has_many :book_comments,dependent: :destroy
+  has_many :view_counts, dependent: :destroy
+
   # いいね機能のアソシエーション
   has_many :favorites,dependent: :destroy
   # いいねしたbookを探すときはいいねモデルを中間テーブルにする（無くてもいい）
   has_many :favorite_books,through: :favorites,source: :book
-  
-  has_many :book_comments,dependent: :destroy
-  
+
   # 中間テーブルのアソシエーション
   # follower （フォローする側）の記述
   # userとrelationship繋ぐ 　自分がフォローした→相手のフォロワーになったので「follower_id」
@@ -27,8 +27,8 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships,class_name:"Relationship",foreign_key:"followed_id",dependent: :destroy
   # 自分をフォローしてる人(自分がフォローされている人)
   has_many :follower_user,through: :reverse_of_relationships , source: :follower
-  
-  
+
+
     # ユーザーをフォローする関数
     # self=大体current_user
   def follow(other_user)
@@ -47,7 +47,7 @@ class User < ApplicationRecord
   def following?(other_user)
    self.following_user.include?(other_user)
   end
-  
+
   # 検索フォームの分岐
   def self.looks(search, word)
     if search == "perfect_match"
@@ -62,17 +62,17 @@ class User < ApplicationRecord
       @user = User.all
     end
   end
-  
+
   # グループ機能
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
-  
+
   # チャット
   has_many :messages,dependent: :destroy
-  
+
   has_many :entries,dependent: :destroy
   has_many :rooms,through: :entries,source: :room
-  
+
   # 名前２文字〜２０まで　同じ名前でsign_upはできない
   validates :name,length: {minimum:2,maximum:20},uniqueness: true
   validates :introduction,length:{maximum:50}

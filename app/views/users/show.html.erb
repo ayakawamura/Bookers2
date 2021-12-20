@@ -3,12 +3,12 @@
 <p class="text-success"><%= flash[:user_update] %></p>
 
     <div class ="col-md-3">
-      
+
       <!--新規投稿の失敗　バリデーション-->
       <%= render "layouts/error",model:@newbook %>
 
       <%= render "users/profile" ,user:@user %>
-      
+
       <!--チャットボタン-->
       <% if current_user.following?(@user) && @user.following?(current_user) %>
         <% unless @user.id==current_user.id %>
@@ -28,7 +28,7 @@
           <%end%>
         <%end%>
       <%end%>
-      
+
       <!--book新規投稿-->
       <%= render "books/newbook",newbook:@newbook %>
     </div>
@@ -42,7 +42,7 @@
               <th style="width: "></th>
               <th style="width: ">Title</th>
               <th style="width: ">Opinion</th>
-              <th></th>
+              <th colspan="2"></th>
             </tr>
           </thead>
 
@@ -58,7 +58,7 @@
 
                 <!--コメント数カウント-->
                 <td>コメント数:<%= book.book_comments.count %></td>
-
+                <td>閲覧数:<%= book.view_counts.count %></td>
               </tr>
             <%end%>
           </tbody>

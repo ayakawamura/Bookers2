@@ -39,7 +39,7 @@
         <td id="favorites_<%=@book.id%>"><%= render "books/favorite",book: @book %></td>
         <!--コメント数カウント/非同期通信-->
         <td class="comments_count">コメント数:<%= @book.book_comments.count %></td>
-
+        <td>閲覧数:<%= @book.view_counts.count %></td>
       </tr>
     </tbody>
   </table>

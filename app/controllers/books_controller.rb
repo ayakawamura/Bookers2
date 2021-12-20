@@ -25,12 +25,15 @@ class BooksController < ApplicationController
     end
   end
 
-
   def show
     @book=Book.find(params[:id])
     @newbook=Book.new
     @user=@book.user
     @book_comment=BookComment.new
+    #閲覧数表示
+    unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+      @book.view_counts.create(user_id: current_user.id)
+    end
   end
 
   def edit
