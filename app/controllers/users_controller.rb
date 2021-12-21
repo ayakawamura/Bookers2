@@ -8,20 +8,24 @@ class UsersController < ApplicationController
     @users=User.all
     @newbook=Book.new
     @user=User.find(current_user.id)
-    
+
   end
 
   def show
     @user=User.find(params[:id])
     @newbook=Book.new
     @books=@user.books
-    
+    @today_books = @books.created_today
+    @yesterday_books = @books.created_yesterday
+    @this_week_books = @books.created_this_week
+    @last_week_books = @books.created_last_week
+
     # チャットボタン
     # entriesテーブルから、current_userがuser_idに入っているものを探す
     @currentUserEntry = Entry.where(user_id: current_user.id)
     # entriesテーブルから、DMを送る相手のidがuser_idに入ってるものを探す
     @userEntry = Entry.where(user_id: @user.id)
-    
+
     # currentUserと@userのEntriesをそれぞれ一つずつ取り出し、2人のroomが既に存在するかを確認
     if @user.id != current_user.id
       @currentUserEntry.each do |cu|
@@ -41,8 +45,8 @@ class UsersController < ApplicationController
       end
     end
   end
-        
-      
+
+
   # def show
   #   @user=User.find(params[:id])
   #   @newbook=Book.new
@@ -52,7 +56,7 @@ class UsersController < ApplicationController
   #     roomIds = current_user.entries.pluck(:room_id)
   #     #user_idが@user　且つ　room_idが上で取得したrooms配列の中にある数値のもののみ取得
   #     entry = Entry.find_by(user_id: @user.id,room_id: roomIds)
-      
+
   #     if entry.nil? #上記で取得できなかった場合の処理
   #       # roomとentryを新規作成する
   #       @room = Room.new
@@ -64,7 +68,7 @@ class UsersController < ApplicationController
   #   end
   # end
 
-      
+
   def edit
     @user=User.find(params[:id])
     # if @user == current_user
@@ -84,19 +88,19 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
 # userコントローラーに一覧ベージを作る場合の記述
   # def following
   #   @user=User.find(params[:id])
   #   @users=@user.following_user
   # end
-  
+
   # def followers
   #   @user=User.find(params[:id])
   #   @users=@user.follower_user
   # end
-    
-    
+
+
   private
   def user_params
     params.require(:user).permit(:name,:profile_image,:introduction)
