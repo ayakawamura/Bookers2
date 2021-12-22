@@ -1,5 +1,9 @@
 <div class="col-md-3">
-  <%= render "books/profile_new",user:@user ,book:@book,newbook:@newbook %>
+  <h1>User info</h1>
+  <%= render "users/profile" ,user:@user %>
+  
+  <!--book新規投稿-->
+  <%= render "books/newbook",newbook:@newbook %>
 </div>
   
 <div class="col-md-8 offset-md-1 pt-3 ">
