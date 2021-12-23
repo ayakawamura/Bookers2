@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     # relationshipsコントローラーに一覧ページを作る際の記述
     get 'following' => 'relationships#following', as: 'following'
     get 'followers' => 'relationships#followers', as: 'followers'
+    get "posted_search" =>"users#search", as: "posted_search"
         # as以下は○○_path部分の指定
    end
 

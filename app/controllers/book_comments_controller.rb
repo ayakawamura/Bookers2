@@ -3,12 +3,10 @@ class BookCommentsController < ApplicationController
 
   def create
     @book=Book.find(params[:book_id])
-    # book_comment=current_user.book_comments.new(book_comment_params)下記2行に書き換え
     book_comment=BookComment.new(book_comment_params)
     book_comment.user_id=current_user.id
     book_comment.book_id=@book.id
     book_comment.save
-    # redirect_back(fallback_location: root_path)
   end
 
   def destroy

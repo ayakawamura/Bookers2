@@ -46,36 +46,8 @@ class UsersController < ApplicationController
     end
   end
 
-
-  # def show
-  #   @user=User.find(params[:id])
-  #   @newbook=Book.new
-  #   @books=@user.books
-  #   if @user.id != current_user.id
-  #     # current_userがuser_idとして登録されてるentryテーブルから、room_idを取得（複数）
-  #     roomIds = current_user.entries.pluck(:room_id)
-  #     #user_idが@user　且つ　room_idが上で取得したrooms配列の中にある数値のもののみ取得
-  #     entry = Entry.find_by(user_id: @user.id,room_id: roomIds)
-
-  #     if entry.nil? #上記で取得できなかった場合の処理
-  #       # roomとentryを新規作成する
-  #       @room = Room.new
-  #       @entry = Entry.new
-  #     else
-  #     # 上で取得したentryに紐づいてるroomテーブルを取得
-  #       @room = entry.room
-  #     end
-  #   end
-  # end
-
-
   def edit
     @user=User.find(params[:id])
-    # if @user == current_user
-    #   render :edit
-    # else
-    #   redirect_to user_path(current_user)
-    # end
   end
 
   def update
@@ -88,18 +60,18 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
-# userコントローラーに一覧ベージを作る場合の記述
-  # def following
-  #   @user=User.find(params[:id])
-  #   @users=@user.following_user
-  # end
-
-  # def followers
-  #   @user=User.find(params[:id])
-  #   @users=@user.follower_user
-  # end
-
+  
+  def search
+    user = User.find(params[:user_id])
+    books = user.books
+    @book = Book.new
+    if params[:created_at] == ""
+      @search_books = "日付を選択してください"
+    else
+      created_at = params[:created_at]
+      @search_books = books.where(["created_at LIKE?" , "#{created_at}%"]).count
+    end
+  end
 
   private
   def user_params

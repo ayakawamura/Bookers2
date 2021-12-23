@@ -181,4 +181,19 @@
             });
           </script>
 
+          <div class="mt-5">
+            <%= form_with url: user_posted_search_path(@user), remote: true,method: :get do |f| %>
+              <%= f.date_field :created_at %>
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            <%end%>
+
+            <div id="posted_result">
+              <% if @search_book.present? %>
+                <%= render "post_book_result" , search_books: @search_books%>
+              <%end%>
+            </div>
+          </div>
+
+
+
         </div>
