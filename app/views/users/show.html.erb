@@ -2,198 +2,56 @@
 <!--user情報のupdete成功メッセージ-->
 <p class="text-success"><%= flash[:user_update] %></p>
 
-    <div class ="col-md-3">
+<div class ="col-md-3">
 
-      <!--新規投稿の失敗　バリデーション-->
-      <%= render "layouts/error",model:@newbook %>
+  <!--新規投稿の失敗　バリデーション-->
+  <%= render "layouts/error",model:@newbook %>
 
-      <%= render "users/profile" ,user:@user %>
+  <%= render "users/profile" ,user:@user %>
 
-      <!--チャットボタン-->
-      <% if current_user.following?(@user) && @user.following?(current_user) %>
-        <% unless @user.id==current_user.id %>
-          <% if @isRoom == true %>
-          	<%= link_to "チャットを始める",room_path(@roomId)%>
-          <% else %>
-          	<!--Roomの作成　RoomとEntry2つのモデルにデータを送る-->
-          	<%= form_with model: @room, local: true do |f| %>
-          		<%= fields_for @entry do |e| %>
-          			<!--@entryのuser_idに@user.idを入れる-->
-          			<%= e.hidden_field :user_id, value: @user.id %>
-          		<%end%>
-          		<%= f.submit "新しくチャットを始める",class:"text-primary"%>
-          		<%#= link_to "新しくチャットを始める", rooms_path,method: :submit %>
-          		<!--link_toだと何度もチャットを作成してしまう-->
-          	<% end %>
-          <%end%>
-        <%end%>
+  <!--チャットボタン-->
+  <% if current_user.following?(@user) && @user.following?(current_user) %>
+    <% unless @user.id==current_user.id %>
+      <% if @isRoom == true %>
+      	<%= link_to "チャットを始める",room_path(@roomId)%>
+      <% else %>
+      	<!--Roomの作成　RoomとEntry2つのモデルにデータを送る-->
+      	<%= form_with model: @room, local: true do |f| %>
+      		<%= fields_for @entry do |e| %>
+      			<!--@entryのuser_idに@user.idを入れる-->
+      			<%= e.hidden_field :user_id, value: @user.id %>
+      		<%end%>
+      		<%= f.submit "新しくチャットを始める",class:"text-primary"%>
+      		<%#= link_to "新しくチャットを始める", rooms_path,method: :submit %>
+      		<!--link_toだと何度もチャットを作成してしまう-->
+      	<% end %>
       <%end%>
+    <%end%>
+  <%end%>
 
-      <!--book新規投稿-->
-      <%= render "books/newbook",newbook:@newbook %>
+  <!--book新規投稿-->
+  <%= render "books/newbook",newbook:@newbook %>
+</div>
+
+<div class="col-md-8 pt-3 offset-md-1">
+  
+  <%= render "users/books_table", books: @books, user: @user %>
+  <%= render "users/the_day_before", 
+    today_books: @today_books, yesterday_books: @yesterday_books, this_week_books: @this_week_books, last_week_books: @last_week_books %>
+  <%= render "users/1week_chart", books: @books, user: @user %>
+    
+
+  <div class="mt-5">
+    <%= form_with url: user_posted_search_path(@user), remote: true,method: :get do |f| %>
+      <%= f.date_field :created_at %>
+      <%= f.submit "検索", class: "btn btn-primary" %>
+    <%end%>
+
+    <div id="posted_result">
+      <% if @search_book.present? %>
+        <%= render "post_book_result" , search_books: @search_books%>
+      <%end%>
     </div>
+  </div>
 
-    <div class="col-md-8 pt-3 offset-md-1">
-
-      <h1>Books</h1>
-        <table class="table table-hover table-inverse" >
-          <thead>
-            <tr>
-              <th style="width: "></th>
-              <th style="width: ">Title</th>
-              <th style="width: ">Opinion</th>
-              <th colspan="2"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @books.each do |book| %>
-              <tr>
-                <td><%=link_to user_path(@user.id) do %>
-                  <%=attachment_image_tag @user,:profile_image,:fill,50,50,format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %>
-                  <%end%>
-                </td>
-                <td><%= link_to book.title, book_path(book.id)%></td>
-                <td><%=book.body %></td>
-
-                <!--コメント数カウント-->
-                <td>コメント数:<%= book.book_comments.count %></td>
-                <td>閲覧数:<%= book.view_counts.count %></td>
-              </tr>
-            <%end%>
-          </tbody>
-        </table>
-
-        <h3 class="mt-5">投稿数の前日比・前週比</h3>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>今日の投稿数</th>
-              <th>前日の投稿数</th>
-              <th>前日比</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @today_books.count %></td>
-              <td><%= @yesterday_books.count %></td>
-              <td>
-                <%if @yesterday_books.count == 0%>
-                  前日の投稿はありません
-                <%else%>
-                  <% @the_day_before = @today_books.count / @yesterday_books.count.to_f %>
-                  <%= (@the_day_before *100).round %>%
-                <%end%>
-              </td>
-            </tr>
-          <tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>今週の投稿数</th>
-              <th>前週の投稿数</th>
-              <th>前週比</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @this_week_books.count %></td>
-              <td><%= @last_week_books.count %></td>
-              <td>
-                <%if @last_week_books.count == 0%>
-                  先週の投稿はありません
-                <%else%>
-                  <% @the_week_before = @this_week_books.count / @last_week_books.count.to_f %>
-                  <%= (@the_week_before*100).round %>
-                <%end%>
-              </td>
-            </tr>
-          <tbody>
-        </table>
-
-        <h3 class="mt-5">7日間分の投稿数</h3>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>6日前</th>
-              <th>5日前</th>
-              <th>4日前</th>
-              <th>3日前</th>
-              <th>2日前</th>
-              <th>1日前</th>
-              <th>今日</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @books.created_days_ago(6).count %></td>
-              <td><%= @books.created_days_ago(5).count %></td>
-              <td><%= @books.created_days_ago(4).count %></td>
-              <td><%= @books.created_days_ago(3).count %></td>
-              <td><%= @books.created_days_ago(2).count %></td>
-              <td><%= @yesterday_books.count %></td>
-              <td><%= @today_books.count %></td>
-            </tr>
-          <tbody>
-        </table>
-
-
-        <canvas id="myLineChart" width="90%"></canvas>
-          <script>
-              $(document).on('turbolinks:load', function() {
-
-              const ctx = document.getElementById("myLineChart").getContext('2d');
-              const myLineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                  labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
-                  datasets: [
-                    {
-                      label: '投稿した本の数',
-                      data: [<%= @books.created_days_ago(6).count %>, <%= @books.created_days_ago(5).count %>, <%= @books.created_days_ago(4).count %>, <%= @books.created_days_ago(3).count %>, <%= @books.created_days_ago(2).count %>, <%= @yesterday_books.count %>, <%= @today_books.count%>],
-                      borderColor: "rgba(0,0,255,1)",
-                      backgroundColor: "rgba(0,0,0,0)",
-                      borderWidth: 2
-                    }
-                  ],
-                },
-                options: {
-                  title: {
-                    display: true,
-                    text: '7日間の投稿数の比較'
-                  },
-                  scales: {
-                    yAxes: [{
-                      ticks: {
-                        suggestedMax: 20,
-                        suggestedMin: 0,
-                        stepSize: 2,
-                        callback: function(value, index, values){
-                          return  value
-                        }
-                      }
-                    }]
-                  },
-                }
-              });
-            });
-          </script>
-
-          <div class="mt-5">
-            <%= form_with url: user_posted_search_path(@user), remote: true,method: :get do |f| %>
-              <%= f.date_field :created_at %>
-              <%= f.submit "検索", class: "btn btn-primary" %>
-            <%end%>
-
-            <div id="posted_result">
-              <% if @search_book.present? %>
-                <%= render "post_book_result" , search_books: @search_books%>
-              <%end%>
-            </div>
-          </div>
-
-
-
-        </div>
+</div>
