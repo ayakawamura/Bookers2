@@ -2,10 +2,10 @@
   <table class="table table-hover table-inverse" >
     <thead>
       <tr>
-        <th style="width: "></th>
-        <th style="width: ">Title</th>
-        <th style="width: ">Opinion</th>
-        <th colspan="2"></th>
+        <th></th>
+        <th>Title</th>
+        <th>Opinion</th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
@@ -22,6 +22,7 @@
           <!--コメント数カウント-->
           <td>コメント数:<%= book.book_comments.count %></td>
           <td>閲覧数:<%= book.view_counts.count %></td>
+          <td><%= render "books/rate_jquery", book: book%></td>
         </tr>
       <%end%>
     </tbody>

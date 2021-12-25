@@ -8,7 +8,7 @@
 
   <h1>User info</h1>
   <%= render "users/profile" ,user:@user %>
-  
+
   <!--book新規投稿-->
   <%= render "books/newbook",newbook:@newbook %>
 </div>
@@ -28,6 +28,15 @@
         <td><%=link_to @book.title,book_path(@book.id) %></td>
         <td><%=@book.body%></td>
 
+        <!--いいねボタン/非同期通信-->
+        <td id="favorites_<%=@book.id%>"><%= render "books/favorite",book: @book %></td>
+        <!--コメント数カウント/非同期通信-->
+        <td class="comments_count">コメント数:<%= @book.book_comments.count %></td>
+        <td>閲覧数:<%= @book.view_counts.count %></td>
+
+        <!--星評価-->
+      <td><%= render "books/rate_jquery", book: @book%></td>
+
         <!--編集・削除ボタン-->
         <% if @user==current_user %>
           <td><%= link_to "Edit",edit_book_path(@book.id),class:"btn btn-success btn-sm" %></td>
@@ -35,11 +44,6 @@
           <td><%= link_to "Destroy",book_path(@book.id),method: :delete,"data-confirm"=>"本当に消しますか？",class:"btn btn-danger btn-sm"%></td>
         <%end%>
 
-        <!--いいねボタン/非同期通信-->
-        <td id="favorites_<%=@book.id%>"><%= render "books/favorite",book: @book %></td>
-        <!--コメント数カウント/非同期通信-->
-        <td class="comments_count">コメント数:<%= @book.book_comments.count %></td>
-        <td>閲覧数:<%= @book.view_counts.count %></td>
       </tr>
     </tbody>
   </table>

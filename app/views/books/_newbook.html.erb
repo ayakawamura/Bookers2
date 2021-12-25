@@ -1,15 +1,31 @@
 <h1>New book</h1>
   <%= form_with model: newbook,local:true do |f| %>
-    
+
     <div class="mb-3">
-      <label for="title">Title</label><br/>
+      <%= f.label :title, "Title" %><br/>
       <%=f.text_field :title %>
     </div>
 
     <div class="mb-3">
-      <label for="body">Opinion</label><br/>
+      <%= f.label :body, "Opinion" %>
       <%=f.text_area :body %>
     </div>
+
+    <div class="" id="star">
+      <%= f.label :rate, "Rate", class:"" %>
+      <%= f.hidden_field :rate, id: :review_star %>
+    </div>
+
+    <script>
+    $('#star').raty({
+      size     : 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'book[rate]',
+      half: true,
+    });
+    </script>
 
     <%=f.submit "Create Book" ,class:"btn btn-success btn-x"%>
 
