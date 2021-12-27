@@ -1,13 +1,19 @@
 class BooksController < ApplicationController
 
   def index
-    @books=Book.all
+    @books=Book.order('created_at DESC')
     @newbook=Book.new
     @user=User.find(current_user.id)
-    # いいね多い順に並び替え
-    # (:favorites)にはbookモデルのアソシエーションで定義したものを入れる
-    # 今回は(:favorites)もしくは(:favorite_uses)
-    @books=Book.includes(:favorites).sort{|a,b| b.favorites.length <=> a.favorites.size}
+    if params[:new]
+      @books=Book.order('created_at DESC')
+    elsif params[:rate]
+      @books=Book.all.sort { |a, b| b.rate <=> a.rate }
+    elsif params[:favorite]
+      # いいね多い順に並び替え
+      # (:favorites)にはbookモデルのアソシエーションで定義したものを入れる
+      # 今回は(:favorites)もしくは(:favorite_uses)
+      @books=Book.includes(:favorites).sort{|a,b| b.favorites.length <=> a.favorites.size}
+    end
   end
 
   def create

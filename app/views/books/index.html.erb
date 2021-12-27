@@ -1,11 +1,11 @@
 <div class="col-md-3">
-  
+
 <!--新規投稿の失敗　バリデーション-->
   <%= render "layouts/error",model:@newbook %>
 
   <h1>User info</h1>
   <%= render "users/profile" ,user:@user %>
-  
+
   <!--book新規投稿-->
   <%= render "books/newbook",newbook:@newbook %>
 
@@ -14,6 +14,10 @@
 <div class="col-md-8 pt-3 offset-md-1">
   <!--投稿一覧-->
   <h1>Books</h1>
+  <%= link_to "新しい順", books_path(new: "true") %> |
+  <%= link_to "評価順", books_path(rate: "true") %> |
+  <%= link_to "いいね順", books_path(favorite: "true") %>
+
   <%= render "books/books_table",books:@books %>
-  
+
 </div>
