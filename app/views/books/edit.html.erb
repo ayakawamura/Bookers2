@@ -16,6 +16,11 @@
       <%= f.text_area :body %>
     </div>
     
+    <div class="mb-3">
+      <label for="tag">Category</label><br/>
+      <%= f.text_area :tag %>
+    </div>
+    
     <div class ="mb-3"><%= render "books/rate_jquery", book: @book%></div>
     <div class="mb-3">
     	<%= f.submit "Update Book" ,class:"btn btn-success"%>

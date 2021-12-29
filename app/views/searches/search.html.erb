@@ -1,16 +1,20 @@
 <!--検索結果一覧-->
 <div class="container pt-3 mx-auto">
 	<div class="row">
-		
+
 		<% if @model=="User" %>
 			<h2>Users search for "<%= @word %>"</h2>
 			<%= render "users/users_table", users:@users %>
-			
+
+		<% elsif @model =="Book" %>
+			<h2>Books search for "<%= @word %>"</h2>
+			<%= render "books/books_table", books:@books %>
+
 		<% else %>
 			<h2>Books search for "<%= @word %>"</h2>
 			<%= render "books/books_table", books:@books %>
-			
+
 		<% end %>
-		
+
 	</div>
 </div>

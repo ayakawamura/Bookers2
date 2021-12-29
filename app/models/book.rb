@@ -6,6 +6,9 @@ class Book < ApplicationRecord
 	belongs_to :user
 	has_many :book_comments,dependent: :destroy
   has_many :view_counts, dependent: :destroy
+  
+  has_many :book_tags,dependent: :destroy
+  has_many :tags, through: :book_tags
 
 # 	いいね機能のアソシエーション
 	has_many :favorites,dependent: :destroy
@@ -31,6 +34,22 @@ class Book < ApplicationRecord
       @book = Book.all
     end
   end
+
+  # タグ検索
+  def self.tag_looks(search, word)
+    if search == "perfect_match"
+      self.where("tag LIKE?", "#{word}")
+    elsif search == "forward_match"
+      self.where("tag LIKE?","#{word}%")
+    elsif search == "backword_match"
+      self.where("tag LIKE?","%#{word}")
+    elsif search == "partial_match"
+      self.where("tag LIKE?","%#{word}%")
+    else
+      self.all
+    end
+  end
+
 
   #投稿数表示
   #def もしくは　scopeで指定

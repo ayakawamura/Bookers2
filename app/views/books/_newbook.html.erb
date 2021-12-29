@@ -11,6 +11,11 @@
       <%=f.text_area :body %>
     </div>
 
+    <div class="mb-3">
+      <%= f.label :tag, "Category" %>
+      <%= f.text_field :tag %>
+    </div>
+
     <div class="" id="star">
       <%= f.label :rate, "Rate", class:"" %>
       <%= f.hidden_field :rate, id: :review_star %>
