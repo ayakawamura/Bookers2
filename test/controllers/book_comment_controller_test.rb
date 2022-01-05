@@ -10,5 +10,4 @@ class BookCommentControllerTest < ActionDispatch::IntegrationTest
     get book_comment_destroy_url
     assert_response :success
   end
-
 end
