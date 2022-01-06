@@ -1,0 +1,23 @@
+.mx-auto.col-11.col-sm-10.col-lg-8.col-xl-6
+	
+	h1
+		| welcome to 
+		i.fas.fa-book
+		span
+			| Bookers
+		| !!
+	
+	p
+		| In 
+		i.fas.fa-book
+		span
+			| Bookers,
+	p
+		| you canshare and exchange your opinions , inpressions , and emotions,
+	p
+		| about various books!
+	
+	.col-10
+		
+		= link_to "Log in",user_session_path,class:"btn btn-info btn-sm btn-block mb-3"
+		= link_to "Sign Up",new_user_registration_path,class:"btn btn-success btn-sm btn-block"
