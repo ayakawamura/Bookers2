@@ -1,0 +1,8 @@
+.text-danger.mb-3
+  - if model.errors.any?
+    h2
+      = model.errors.count
+      | error prohibited this obj from being saved:
+    - model.errors.full_messages.each do |message|
+      li
+        = message
